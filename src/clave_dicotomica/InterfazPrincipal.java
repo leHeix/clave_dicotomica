@@ -60,6 +60,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
         jLabel5 = new javax.swing.JLabel();
         resultado_arboles_templados_scpn = new javax.swing.JScrollPane();
         resultado_arboles_templados = new javax.swing.JTextArea();
+        visualizar_grafo_at = new javax.swing.JButton();
         panel_familias_botanicas = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         busqueda_familia_botanica_btn = new javax.swing.JButton();
@@ -67,6 +68,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         resultado_familia_botanica_scpn = new javax.swing.JScrollPane();
         resultado_familia_botanica = new javax.swing.JTextArea();
+        visualizar_grafo_fb = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,7 +81,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Para empezar a identificar plantas, debes cargar alguno de los dos tipos de \nclaves dicotómicas: árboles templados o familias botánicas. \nLas opciones se habilitaran en las pestañas de arriba al cargar alguna de las dos claves.\n");
+        jTextArea1.setText("Para empezar a identificar plantas, debes cargar alguno de los dos tipos de \nclaves dicotómicas: árboles templados o familias botánicas. \nLas opciones se habilitaran en las pestañas de arriba al cargar alguna de las dos claves.\nSiempre puedes volver a cargar cualquiera de las dos claves dicotómicas.\n");
         jScrollPane1.setViewportView(jTextArea1);
 
         cargar_clave_button.setText("Cargar clave dicotómica");
@@ -135,24 +137,31 @@ public class InterfazPrincipal extends javax.swing.JFrame
         resultado_arboles_templados.setRows(5);
         resultado_arboles_templados_scpn.setViewportView(resultado_arboles_templados);
 
+        visualizar_grafo_at.setText("Visualizar como grafo");
+        visualizar_grafo_at.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizar_grafo_atActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_arboles_templadosLayout = new javax.swing.GroupLayout(panel_arboles_templados);
         panel_arboles_templados.setLayout(panel_arboles_templadosLayout);
         panel_arboles_templadosLayout.setHorizontalGroup(
             panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_arboles_templadosLayout.createSequentialGroup()
-                .addContainerGap(229, Short.MAX_VALUE)
-                .addComponent(busqueda_arboles_templados_btn)
-                .addGap(224, 224, 224))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
+                    .addComponent(resultado_arboles_templados_scpn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(resultado_arboles_templados_scpn, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
+                        .addComponent(busqueda_arboles_templados_btn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(visualizar_grafo_at)))
                 .addContainerGap())
         );
         panel_arboles_templadosLayout.setVerticalGroup(
@@ -161,7 +170,9 @@ public class InterfazPrincipal extends javax.swing.JFrame
                 .addGap(19, 19, 19)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(busqueda_arboles_templados_btn)
+                .addGroup(panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(busqueda_arboles_templados_btn)
+                    .addComponent(visualizar_grafo_at))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -191,24 +202,31 @@ public class InterfazPrincipal extends javax.swing.JFrame
         resultado_familia_botanica.setRows(5);
         resultado_familia_botanica_scpn.setViewportView(resultado_familia_botanica);
 
+        visualizar_grafo_fb.setText("Visualizar como grafo");
+        visualizar_grafo_fb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizar_grafo_fbActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel_familias_botanicasLayout = new javax.swing.GroupLayout(panel_familias_botanicas);
         panel_familias_botanicas.setLayout(panel_familias_botanicasLayout);
         panel_familias_botanicasLayout.setHorizontalGroup(
             panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_familias_botanicasLayout.createSequentialGroup()
-                .addContainerGap(229, Short.MAX_VALUE)
-                .addComponent(busqueda_familia_botanica_btn)
-                .addGap(224, 224, 224))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
+                    .addComponent(resultado_familia_botanica_scpn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(resultado_familia_botanica_scpn, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
+                        .addComponent(busqueda_familia_botanica_btn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(visualizar_grafo_fb)))
                 .addContainerGap())
         );
         panel_familias_botanicasLayout.setVerticalGroup(
@@ -217,7 +235,9 @@ public class InterfazPrincipal extends javax.swing.JFrame
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(busqueda_familia_botanica_btn)
+                .addGroup(panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(busqueda_familia_botanica_btn)
+                    .addComponent(visualizar_grafo_fb))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -294,6 +314,14 @@ public class InterfazPrincipal extends javax.swing.JFrame
         this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot(), this.resultado_arboles_templados);
     }//GEN-LAST:event_busqueda_familia_botanica_btnActionPerformed
 
+    private void visualizar_grafo_atActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizar_grafo_atActionPerformed
+        this.arbolArbolesTemplados.visualizarConGraphStream();
+    }//GEN-LAST:event_visualizar_grafo_atActionPerformed
+
+    private void visualizar_grafo_fbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizar_grafo_fbActionPerformed
+        this.arbolFamiliasBotanicas.visualizarConGraphStream();
+    }//GEN-LAST:event_visualizar_grafo_fbActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton busqueda_arboles_templados_btn;
     private javax.swing.JButton busqueda_familia_botanica_btn;
@@ -315,5 +343,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
     private javax.swing.JScrollPane resultado_arboles_templados_scpn;
     private javax.swing.JTextArea resultado_familia_botanica;
     private javax.swing.JScrollPane resultado_familia_botanica_scpn;
+    private javax.swing.JButton visualizar_grafo_at;
+    private javax.swing.JButton visualizar_grafo_fb;
     // End of variables declaration//GEN-END:variables
 }

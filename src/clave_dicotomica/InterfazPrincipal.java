@@ -287,13 +287,11 @@ public class InterfazPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_cargar_clave_buttonActionPerformed
 
     private void busqueda_arboles_templados_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_arboles_templados_btnActionPerformed
-        String res = this.arbolArbolesTemplados.determinarEspecie(this.arbolArbolesTemplados.getRoot());
-        this.resultado_arboles_templados.setText(res);
+        this.arbolArbolesTemplados.determinarEspecie(this.arbolArbolesTemplados.getRoot(), this.resultado_arboles_templados);
     }//GEN-LAST:event_busqueda_arboles_templados_btnActionPerformed
 
     private void busqueda_familia_botanica_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_familia_botanica_btnActionPerformed
-        String res = this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot());
-        this.resultado_familia_botanica.setText(res);
+        this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot(), this.resultado_arboles_templados);
     }//GEN-LAST:event_busqueda_familia_botanica_btnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

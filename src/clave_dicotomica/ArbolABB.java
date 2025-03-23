@@ -199,12 +199,16 @@ public class ArbolABB
         }
     }
     
-    public String determinarEspecie(NodoABB root) 
+    public void determinarEspecie(NodoABB root, javax.swing.JTextArea output) 
     {
+        output.setText("");
+
         NodoABB nodoActual = root;
         while (nodoActual != null && !nodoActual.esEspecie()) 
         {
             int respuesta = JOptionPane.showConfirmDialog(null, nodoActual.getDato(), "Pregunta", JOptionPane.YES_NO_OPTION);
+            output.setText(output.getText() + "\n" + nodoActual.getDato() + ": " + (respuesta == JOptionPane.YES_OPTION ? "Sí" : "No"));
+            
             if (respuesta == JOptionPane.YES_OPTION) 
             {
                 nodoActual = nodoActual.getHijoDer();
@@ -212,10 +216,10 @@ public class ArbolABB
             else 
             {
                 nodoActual = nodoActual.getHijoIzq();
-            }
+            }            
         }
         
-        return nodoActual != null ? nodoActual.getEspecie() : "Especie no encontrada.";
+        output.setText(output.getText() + "\n\n" + (nodoActual == null ? "No se pudo encontrar la especie." : "Especie: " + nodoActual.getEspecie()));
     }
     
     public void visualizarConGraphStream() 

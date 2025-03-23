@@ -178,6 +178,11 @@ public class InterfazPrincipal extends javax.swing.JFrame
         jLabel1.setText("Encontrar familia botánica");
 
         busqueda_familia_botanica_btn.setText("Empezar búsqueda");
+        busqueda_familia_botanica_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busqueda_familia_botanica_btnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Resultado:");
 
@@ -282,9 +287,14 @@ public class InterfazPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_cargar_clave_buttonActionPerformed
 
     private void busqueda_arboles_templados_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_arboles_templados_btnActionPerformed
-       String res = this.arbolArbolesTemplados.determinarEspecie(this.arbolArbolesTemplados.getRoot());
-       this.resultado_arboles_templados.setText(res);
+        String res = this.arbolArbolesTemplados.determinarEspecie(this.arbolArbolesTemplados.getRoot());
+        this.resultado_arboles_templados.setText(res);
     }//GEN-LAST:event_busqueda_arboles_templados_btnActionPerformed
+
+    private void busqueda_familia_botanica_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_familia_botanica_btnActionPerformed
+        String res = this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot());
+        this.resultado_familia_botanica.setText(res);
+    }//GEN-LAST:event_busqueda_familia_botanica_btnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton busqueda_arboles_templados_btn;

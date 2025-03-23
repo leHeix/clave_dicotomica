@@ -275,6 +275,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Empezar b&#xfa;squeda"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="busqueda_familia_botanica_btnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator1">
             </Component>

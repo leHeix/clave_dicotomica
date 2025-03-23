@@ -11,10 +11,11 @@ package clave_dicotomica;
 public class NodoABB 
 {  
     private String dato; // Ahora las preguntas o nombres de especies serán cadenas de texto
-    private NodoABB hijoIzq;
-    private NodoABB hijoDer;
+    private NodoABB hijoIzq; // Nodo falso
+    private NodoABB hijoDer; // Nodo verdadero
     private NodoABB padre;
     private boolean esEspecie; // Identifica si el nodo es una especie
+    private String especie;
 
     public NodoABB(String dato) 
     {
@@ -74,19 +75,23 @@ public class NodoABB
         this.padre = padre;
     }
 
-    public boolean isEsEspecie() 
+    public boolean esEspecie() 
     {
-        return esEspecie;
+        return esEspecie && hijoIzq == null && hijoDer == null;
     }
 
     public void setEsEspecie(boolean esEspecie) 
     {
         this.esEspecie = esEspecie;
     }
-
-    public boolean esHoja() 
+    
+    public String getEspecie()
     {
-        return (hijoIzq == null && hijoDer == null);
+        return this.especie;
     }
-
+    
+    public void setEspecie(String especie)
+    {
+        this.especie = especie;
+    }
 }

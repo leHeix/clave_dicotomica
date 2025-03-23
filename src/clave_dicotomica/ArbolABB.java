@@ -6,24 +6,26 @@ package clave_dicotomica;
 
 /**
  *
- * @author lenovo
+ * @author Gabriel
  */
 
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-
+import org.json.*;
 
 public class ArbolABB 
 {    
     //Atributos de la clase
     private NodoABB root;
+    private HashTable hashtable;
 
     //Constructor de ArbolABB vacio
     public ArbolABB() 
     {
         this.root = null;
+        this.hashtable = new HashTable();
     }
     
     //Metodo para vaciar un arbol convirtiendo la raiz en null
@@ -76,42 +78,22 @@ public class ArbolABB
     }
     
     //Metodo para buscar un valor especifico recorriendo cada uno de los nodos del arbol binario que se desee
-    public NodoABB Buscar(String valor, NodoABB root) 
+    public NodoABB Buscar(String valor) 
     {
-        if (nodoEstaVacio(root)) 
-        {
-            return null; 
-        } 
-        else 
-        {
-            int comparacion = valor.compareTo(root.getDato());
-            if (comparacion < 0) 
-            {
-                return Buscar(valor, root.getHijoIzq());
-            }
-            else if (comparacion > 0) 
-            {
-                return Buscar(valor, root.getHijoDer());
-            } 
-            else 
-            {
-                return root;
-            }
-        }
+        return this.hashtable.buscar(valor);
     }
 
     
     //Este Metodo Implementa el metodo de Buscar(int valor, NodoABB) para indicar el tiempo de busqueda
-    public NodoABB buscarConTiempo(String valor, NodoABB root) 
+    public Tuple<NodoABB, Long> buscarConTiempo(String valor) 
     {
         long inicio = System.nanoTime();
-        NodoABB resultado = Buscar(valor, root);
+        NodoABB resultado = Buscar(valor);
         long fin = System.nanoTime();
-        System.out.println("Tiempo de búsqueda en árbol: " + (fin - inicio) + " nanosegundos");
-        return resultado;
+        return new Tuple<>(resultado, inicio - fin);
     }
 
-        //Metodo para insertar un nodo al Arbol Binario de Busqueda
+    //Metodo para insertar un nodo al Arbol Binario de Busqueda
     public NodoABB Insertar(String dato, NodoABB nodoPadre, boolean respuesta) {
         NodoABB nuevoNodo = new NodoABB(dato);
 
@@ -128,95 +110,90 @@ public class ArbolABB
         return nuevoNodo;
     }
     
-    public static ArbolABB cargarDeJSON(String jsonContent) 
+    public static ArbolABB cargarDeJSON(JSONArray jsonContent) throws JSONException
     {
         ArbolABB arbol = new ArbolABB();
-
-        if (jsonContent.startsWith("{") && jsonContent.endsWith("}")) 
+        
+        int array_length = jsonContent.length();
+        for(int i = 0; i < array_length; ++i)
         {
-            jsonContent = jsonContent.substring(1, jsonContent.length() - 1); // Quita las llaves externas
-
-            // Divide el contenido en pares clave-valor
-            String[] entradas = jsonContent.split("},\\s*\\{"); // Divide por objetos separados
-            for (String entrada : entradas) 
+            JSONObject obj = jsonContent.getJSONObject(i);
+            String nombreEspecie = obj.keys().next();
+            
+            NodoABB nodo = arbol.getRoot();
+            NodoABB anterior = null;
+            boolean respuestaAnterior = false;
+            
+            JSONArray arrayPreguntas = obj.getJSONArray(nombreEspecie);
+            int arrayPreguntasLength = arrayPreguntas.length();
+            for(int j = 0; j < arrayPreguntasLength; ++j)
             {
-                entrada = entrada.replace("{", "").replace("}", ""); // Limpia las llaves
-
-                // Divide clave y valor
-                String[] partes = entrada.split(":\\s*\\[");
-                String nombreEspecie = partes[0].replace("\"", "").trim(); // Limpia comillas
-                String preguntas = partes[1].replace("]", "").trim();
-
-                // Parsear las preguntas
-                String[] listaPreguntas = preguntas.split(",\\s*\\{");
-                NodoABB nodoActual = null;
-
-                for (String pregunta : listaPreguntas) 
+                JSONObject preguntaObj = arrayPreguntas.getJSONObject(j);
+                String pregunta = preguntaObj.keys().next();
+                boolean respuesta = preguntaObj.getBoolean(pregunta);
+                
+                // Crear la raíz si no existe
+                if(nodo == null)
                 {
-                    pregunta = pregunta.replace("{", "").replace("}", "").trim();
-                    String[] preguntaValor = pregunta.split(":");
-                    String textoPregunta = preguntaValor[0].replace("\"", "").trim();
-                    boolean respuesta = Boolean.parseBoolean(preguntaValor[1].trim());
-
-                    NodoABB nuevoNodo = new NodoABB(textoPregunta);
-                    if (nodoActual == null) 
+                    nodo = new NodoABB(pregunta);
+                    if(arbol.root == null)
+                        arbol.root = nodo;
+                }
+                else
+                {            
+                    if(nodo.getDato().equals(pregunta))
                     {
-                        nodoActual = nuevoNodo;
-                        arbol.setRoot(nodoActual); // Establece la raíz
-                    } 
-                    else 
+                        if(respuesta)
+                        {
+                            if(nodo.getHijoDer() == null)
+                                nodo.setHijoDer(new NodoABB(pregunta));
+                            
+                            nodo = nodo.getHijoDer();
+                        }
+                        else
+                        {
+                            if(nodo.getHijoIzq() == null)
+                                nodo.setHijoIzq(new NodoABB(pregunta));
+                            
+                            nodo = nodo.getHijoIzq();
+                        }
+                    }
+                    else
                     {
-                        if (respuesta) 
+                        NodoABB nodoNuevo = new NodoABB(pregunta);
+                        if(respuestaAnterior)
                         {
-                            nodoActual.setHijoDer(nuevoNodo);
-                        } else 
+                            anterior.setHijoDer(nodoNuevo);
+                        }
+                        else
                         {
-                            nodoActual.setHijoIzq(nuevoNodo);
+                            anterior.setHijoIzq(nodoNuevo);
                         }
                         
-                        nodoActual = nuevoNodo; // Actualiza el nodo actual
+                        nodo = nodoNuevo;
                     }
                 }
-
-                // Inserta la especie como hoja
-                NodoABB nodoEspecie = new NodoABB(nombreEspecie);
-                if (nodoActual != null) 
-                {
-                    nodoActual.setHijoDer(nodoEspecie);
-                }
+                
+                anterior = nodo;
+                respuestaAnterior = respuesta;
             }
+            
+            if(nodo != null && nodo.getHijoDer() == null && nodo.getHijoIzq() == null)
+            {
+                nodo.setEspecie(nombreEspecie);
+                nodo.setEsEspecie(true);
+                arbol.hashtable.insertar(nombreEspecie, nodo);
+            }
+            else System.out.println("el nodo no es null????");
         }
         
         return arbol;
     }
-
-
-    private static String leerArchivo(String path) 
-    {
-        StringBuilder jsonContent = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) 
-        {
-            String line;
-            while ((line = br.readLine()) != null) 
-            {
-                jsonContent.append(line.trim()); // Agrega cada línea al contenido JSON
-            }
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-        
-        return jsonContent.toString();
-    }
-
-
-
     
     public String determinarEspecie(NodoABB root) 
     {
         NodoABB nodoActual = root;
-        while (nodoActual != null && !nodoActual.esHoja()) 
+        while (nodoActual != null && !nodoActual.esEspecie()) 
         {
             int respuesta = JOptionPane.showConfirmDialog(null, nodoActual.getDato(), "Pregunta", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.YES_OPTION) 
@@ -229,7 +206,7 @@ public class ArbolABB
             }
         }
         
-        return nodoActual != null ? nodoActual.getDato() : "Especie no encontrada.";
+        return nodoActual != null ? nodoActual.getEspecie() : "Especie no encontrada.";
     }
 
     

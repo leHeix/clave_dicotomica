@@ -5,11 +5,15 @@
 package clave_dicotomica;
 
 /**
- *
+ * Clase principal
  * @author Naim
  */
 public class Clave_dicotomica 
 {
+    /**
+     * Método principal, se ejecuta al iniciar el programa
+     * @param args 
+     */
     public static void main(String[] args) 
     {
         System.setProperty("org.graphstream.ui", "swing");

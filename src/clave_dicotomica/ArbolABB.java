@@ -4,11 +4,6 @@
  */
 package clave_dicotomica;
 
-/**
- *
- * @author Gabriel
- */
-
 import javax.swing.JOptionPane;
 import java.util.Random;
 import org.json.*;
@@ -16,6 +11,10 @@ import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
 import org.graphstream.ui.view.Viewer;
 
+/**
+ * Clase de Árbol binario de búsqueda, se encarga de parsear datos de JSON y almacenarlos
+ * @author Gabriel
+ */
 public class ArbolABB 
 {    
     //Atributos de la clase
@@ -23,7 +22,9 @@ public class ArbolABB
     private HashTable hashtable;
     private SingleGraph graph;
 
-    //Constructor de ArbolABB vacio
+    /**
+     * Construye un árbol binario de búsqueda vacío
+     */
     public ArbolABB() 
     {
         this.root = null;
@@ -38,20 +39,28 @@ public class ArbolABB
         );
     }
     
-    //Metodo para vaciar un arbol convirtiendo la raiz en null
+    /**
+     * Vacía el árbol binario y elimina todos sus valores
+     */
     public void vaciar()
     {
         root = null;
-    }
+        this.graph = new SingleGraph("ABB" + new Random().nextInt(Integer.MAX_VALUE));
+        this.graph.setAttribute("ui.stylesheet", ""
+                + "node {"
+                + "   text-alignment: right;"
+                + "   text-offset: 10px, 0px;"
+                + "   size: 5px, 5px;"
+                + "}"
+        );
+    } 
     
-    //Metodo para chequear si un nodo es vacio
-    public static boolean nodoEstaVacio(NodoABB node)
-    {
-        return node == null;
-    }
-    
-    
-    //Metodo de recorrido Preorden
+    /**
+     * Recorre el árbol con el método de Preorden
+     * @param root Nodo desde el cual empezar el recorrido
+     * @param cadena String inicial a la que sumar el recorrido
+     * @return String conteniendo el valor de "cadena" + el recorrido
+     */
     public String Preorden(NodoABB root, String cadena)
     {
         if(root != null)
@@ -63,7 +72,12 @@ public class ArbolABB
         return cadena;
     }
     
-    //Metodo de recorrido Postorden
+    /**
+     * Recorre el árbol con el método de Postorden
+     * @param root Nodo desde el cual empezar el recorrido
+     * @param cadena String inicial a la que sumar el recorrido
+     * @return String conteniendo el valor de "cadena" + el recorrido
+     */
     public String Postorden(NodoABB root, String cadena)
     {
         if(root != null)
@@ -75,7 +89,12 @@ public class ArbolABB
         return cadena;
     }
     
-    //Metodo Inorden, al recorrerlo deberian salir los valores en orden
+    /**
+     * Recorre el árbol con el método de Inorden
+     * @param root Nodo desde el cual empezar el recorrido
+     * @param cadena String inicial a la que sumar el recorrido
+     * @return String conteniendo el valor de "cadena" + el recorrido
+     */
     public String Inorden(NodoABB root, String cadena)
     {
         if(root != null)
@@ -87,14 +106,22 @@ public class ArbolABB
         return cadena;
     }
     
-    //Metodo para buscar un valor especifico recorriendo cada uno de los nodos del arbol binario que se desee
+    /**
+     * Busca un valor por su nombre en la HashTable del árbol vinario
+     * @param valor El nombre del valor almacenado
+     * @return El nodo que representa el valor encontrado, o null si no se encontró
+     */
     public NodoABB Buscar(String valor) 
     {
         return this.hashtable.buscar(valor);
     }
 
     
-    //Este Metodo Implementa el metodo de Buscar(int valor, NodoABB) para indicar el tiempo de busqueda
+    /**
+     * Equivalente al método Buscar, pero cronometrando el tiempo que toma la ejecución de la función
+     * @param valor El nombre del valor almacenado
+     * @return Un tuple conteniendo el nodo encontrado en el primer valor y el tiempo que demoró la función en nanosegundos en el segundo valor
+     */
     public Tuple<NodoABB, Long> buscarConTiempo(String valor) 
     {
         long inicio = System.nanoTime();
@@ -103,7 +130,13 @@ public class ArbolABB
         return new Tuple<>(resultado, inicio - fin);
     }
 
-    //Metodo para insertar un nodo al Arbol Binario de Busqueda
+    /**
+     * Inserta un valor en el árbol binario
+     * @param dato La llave por la cual representar al valor
+     * @param nodoPadre El nodo padre al cual vincular el nuevo nodo
+     * @param respuesta true si el nodo nuevo debe ser el hijo derecho del padre, falso si debe ser el izquierdo
+     * @return El nodo insertado
+     */
     public NodoABB Insertar(String dato, NodoABB nodoPadre, boolean respuesta) {
         NodoABB nuevoNodo = new NodoABB(dato);
 
@@ -120,6 +153,12 @@ public class ArbolABB
         return nuevoNodo;
     }
     
+    /**
+     * Construye un árbol binario basado en los contenidos de un array de JSON
+     * @param jsonContent El objeto JSONArray que contiene los datos con los cuales construir el árbol
+     * @return El objeto del árbol binario creado
+     * @throws JSONException 
+     */
     public static ArbolABB cargarDeJSON(JSONArray jsonContent) throws JSONException
     {
         ArbolABB arbol = new ArbolABB();
@@ -174,6 +213,12 @@ public class ArbolABB
         return arbol;
     }
     
+    /**
+     * Busca si ya existe un nodo con un nombre
+     * @param nodo El nodo desde el cual empezar el recorrido
+     * @param pregunta El dato con el cual comparar si existe el nodo
+     * @return El objeto NodoABB del nodo encontrado, o null si no existe
+     */
     private NodoABB buscarNodo(NodoABB nodo, String pregunta)
     {
         if(nodo == null)
@@ -189,6 +234,13 @@ public class ArbolABB
         return buscarNodo(nodo.getHijoDer(), pregunta);
     }
     
+    /**
+     * Crea un nuevo nodo o retorna el nodo si ya existe en el árbol
+     * @param nodo El nodo desde el cual empezar el recorrido
+     * @param pregunta La pregunta que debe contener el nodo en la búsqueda o creación
+     * @param respuesta true si representa el hijo derecho, false si el izquierdo
+     * @return El NodoABB creado o encontrado
+     */
     private NodoABB buscarOCrearNuevoNodo(NodoABB nodo, String pregunta, boolean respuesta)
     {
         NodoABB existente = this.buscarNodo(nodo, pregunta);
@@ -217,6 +269,12 @@ public class ArbolABB
         }
     }
     
+    /**
+     * Recorre el árbol mientras hace preguntas al usuario para encontrar una especie, luego
+     * imprime el output en el JTextArea proporcionado
+     * @param root El nodo desde el cual empezar el recorrido
+     * @param output El JTextArea donde imprimir el resultado
+     */
     public void determinarEspecie(NodoABB root, javax.swing.JTextArea output) 
     {
         output.setText("");
@@ -240,11 +298,20 @@ public class ArbolABB
         output.setText(output.getText() + "\n\n" + (nodoActual == null ? "No se pudo encontrar la especie." : "Especie: " + nodoActual.getEspecie()));
     }
     
+    /**
+     * Construye el graph desde la raíz del árbol
+     */
     private void construirGraph()
     {
         this.construirGraph(this.root, 0.f, 0.f);
     }
     
+    /**
+     * Construye el graph partiendo desde un nodo y coordenadas del graph
+     * @param nodo El nodo desde el cual empezar a construir el graph
+     * @param x La coordenada X desde la cual empezar a generar los nodos en el graph
+     * @param y La coordenada Y desde la cual empezar a generar los nodos en el graph
+     */
     private void construirGraph(NodoABB nodo, float x, float y)
     {
         if(nodo == null)
@@ -271,12 +338,20 @@ public class ArbolABB
         }
     }
     
+    /**
+     * Muestra el graph del árbol
+     */
     public void visualizarConGraphStream() 
     {
         Viewer viewer = this.graph.display(false);
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
     }
     
+    /**
+     * Obtiene todas las preguntas que hacen resultar a una especie
+     * @param nombreEspecie El nombre de la especie a obtener
+     * @return String conteniendo todo el recorrido en el árbol que deriva en la especie
+     */
     public String obtenerCaminoEspecie(String nombreEspecie)
     {
         NodoABB Especie = this.hashtable.buscar(nombreEspecie);
@@ -307,12 +382,20 @@ public class ArbolABB
             return resultado;
         }
     }
-
+    
+    /**
+     * Obtiene la raíz del árbol
+     * @return El nodo raíz del árbol
+     */
     public NodoABB getRoot() 
     {
         return root;
     }
-
+    
+    /**
+     * Asigna la raíz del árbol
+     * @param Root El nodo raíz del árbol
+     */
     public void setRoot(NodoABB Root) 
     {
         this.root = Root;

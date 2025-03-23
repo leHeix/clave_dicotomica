@@ -10,12 +10,20 @@ package clave_dicotomica;
  */
 public class HashTable 
 {
+    /**
+     * Clase Nodo de la lista enlazada de la HashTable
+     */
     public class Nodo
     {
         String key;
         NodoABB value;
         Nodo siguiente;
         
+        /**
+         * Crea un nuevo nodo
+         * @param key Llave del nodo
+         * @param value Valor del nodo
+         */
         public Nodo(String key, NodoABB value)
         {
             this.key = key;
@@ -27,17 +35,30 @@ public class HashTable
     private Nodo[] tabla;
     private int tamaño;
     
+    /**
+     * Crea una HashTable con tamaño predeterminado
+     */
     public HashTable()
     {
         this.tabla = new Nodo[16];
         this.tamaño = 0;
     }
     
+    /**
+     * Retorna el hash de una llave para la HashTable
+     * @param key Llave a hashear
+     * @return El hash de la llave
+     */
     private int hash(String key)
     {
         return Math.abs(key.hashCode()) % this.tabla.length;
     }
     
+    /**
+     * Inserta un elemento en la HashTable
+     * @param key Llave correspondiente al valor a insertar
+     * @param value Valor a almacenar en la HashTable
+     */
     public void insertar(String key, NodoABB value)
     {
         int idx = this.hash(key);
@@ -66,6 +87,9 @@ public class HashTable
         }
     }
     
+    /**
+     * Recrea la tabla con un espacio mayor en el caso de quedarse sin espacio
+     */
     private void realloc()
     {
         Nodo[] tablaAnterior = this.tabla;
@@ -82,6 +106,11 @@ public class HashTable
         }
     }
     
+    /**
+     * Busca un valor en la tabla por su llave
+     * @param key Llave del valor almacenado en la tabla
+     * @return El NodoABB vinculado a la llave, o null en caso de no encontrar un valor
+     */
     public NodoABB buscar(String key)
     {
         int idx = this.hash(key);
@@ -99,11 +128,19 @@ public class HashTable
         return null;
     }
     
+    /**
+     * Retorna el tamaño de la tabla
+     * @return Tamaño de la tabla
+     */
     public int tamaño()
     {
         return this.tamaño;
     }
     
+    /**
+     * Determina si la tabla esta vacía
+     * @return true si la tabla esta vacía, false de lo contrario
+     */
     public boolean vacia()
     {
         return this.tamaño == 0;

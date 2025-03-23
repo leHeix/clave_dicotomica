@@ -13,6 +13,9 @@ public class Tuple<V1, V2>
     public V1 primero;
     public V2 segundo;
     
+    /**
+     * Crea un tuple con dos valores
+     */
     public Tuple(V1 primero, V2 segundo)
     {
         this.primero = primero;

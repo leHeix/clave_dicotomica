@@ -12,7 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.json.*;
 
 /**
- *
+ * Clase que maneja la interfaz principal
  * @author Naim
  */
 public class InterfazPrincipal extends javax.swing.JFrame 
@@ -21,7 +21,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
     ArbolABB arbolFamiliasBotanicas;
     
     /**
-     * Creates new form InterfazPrincipal
+     * Crea la interfaz principal y los árboles
      */
     public InterfazPrincipal() 
     {
@@ -320,6 +320,10 @@ public class InterfazPrincipal extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al presionar el botón de Cargar clave dicotómica
+     * @param evt 
+     */
     private void cargar_clave_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargar_clave_buttonActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setMultiSelectionEnabled(false);
@@ -363,22 +367,42 @@ public class InterfazPrincipal extends javax.swing.JFrame
         }
     }//GEN-LAST:event_cargar_clave_buttonActionPerformed
 
+    /**
+     * Evento que se ejecuta al presionar el botón de Empezar búsqueda en la pestaña de Árboles templados
+     * @param evt 
+     */
     private void busqueda_arboles_templados_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_arboles_templados_btnActionPerformed
         this.arbolArbolesTemplados.determinarEspecie(this.arbolArbolesTemplados.getRoot(), this.resultado_arboles_templados);
     }//GEN-LAST:event_busqueda_arboles_templados_btnActionPerformed
 
+    /**
+     * Evento que se ejecuta al presionar el botón de Empezar búsqueda en la pestaña de Familias botánicas
+     * @param evt 
+     */
     private void busqueda_familia_botanica_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_familia_botanica_btnActionPerformed
         this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot(), this.resultado_familia_botanica);
     }//GEN-LAST:event_busqueda_familia_botanica_btnActionPerformed
 
+    /**
+     * Evento que se ejecuta al presionar el botón Visualizar en grafo en la pestaña de Árboles templados
+     * @param evt 
+     */
     private void visualizar_grafo_atActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizar_grafo_atActionPerformed
         this.arbolArbolesTemplados.visualizarConGraphStream();
     }//GEN-LAST:event_visualizar_grafo_atActionPerformed
 
+    /**
+     * Evento que se ejecuta al presionar el botón Visualizar en grafo en la pestaña de Familias botánicas
+     * @param evt 
+     */
     private void visualizar_grafo_fbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizar_grafo_fbActionPerformed
         this.arbolFamiliasBotanicas.visualizarConGraphStream();
     }//GEN-LAST:event_visualizar_grafo_fbActionPerformed
 
+    /**
+     * Evento que se ejecuta al presionar el botón Buscar por nombre en la pestaña de Árboles templados
+     * @param evt 
+     */
     private void buscar_por_nombre_atActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_por_nombre_atActionPerformed
         String respuesta = JOptionPane.showInputDialog(this, "Introduce el nombre de la especie", "Nombre de especie", JOptionPane.QUESTION_MESSAGE);
         if(respuesta == null || respuesta.length() == 0)
@@ -391,6 +415,10 @@ public class InterfazPrincipal extends javax.swing.JFrame
         this.resultado_arboles_templados.setText(camino);
     }//GEN-LAST:event_buscar_por_nombre_atActionPerformed
 
+    /**
+     * Evento que se ejecuta al presionar el botón Buscar por nombre en la pestaña de Familias botánicas
+     * @param evt 
+     */
     private void buscar_por_nombre_fbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_por_nombre_fbActionPerformed
         String respuesta = JOptionPane.showInputDialog(this, "Introduce el nombre de la familia botánica", "Nombre de familia botánica", JOptionPane.QUESTION_MESSAGE);
         if(respuesta == null || respuesta.length() == 0)

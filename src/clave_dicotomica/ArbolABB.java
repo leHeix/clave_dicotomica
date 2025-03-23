@@ -122,6 +122,7 @@ public class ArbolABB
                         
             JSONArray arrayPreguntas = obj.getJSONArray(nombreEspecie);
             int arrayPreguntasLength = arrayPreguntas.length();
+            boolean ultimaRespuesta = false;
             
             NodoABB nodo = arbol.getRoot();
                         
@@ -133,52 +134,69 @@ public class ArbolABB
                 
                 if(nodo == null)
                 {
-                    arbol.root = new NodoABB(pregunta);
-                    nodo = arbol.root;
-                }
-                else
-                {
-                    if(respuesta)
-                    {
-                        if(nodo.getHijoDer() == null)
-                        {
-                            nodo.setHijoDer(new NodoABB(pregunta));
-                        }
-
-                        nodo = nodo.getHijoDer();
-                    }
-                    else
-                    {
-                        if(nodo.getHijoIzq() == null)
-                        {
-                            nodo.setHijoIzq(new NodoABB(pregunta));
-                        }
-
-                        nodo = nodo.getHijoIzq();
-                    }
+                    nodo = new NodoABB(pregunta);
+                    arbol.root = nodo;
                 }
                 
-                if(j == arrayPreguntasLength - 1)
-                {
-                    NodoABB nodoEspecie = new NodoABB(nombreEspecie);
-                    nodoEspecie.setEspecie(nombreEspecie);
-                    nodoEspecie.setEsEspecie(true);
-
-                    if(respuesta)
-                    {
-                        nodo.setHijoDer(nodoEspecie);
-                    }
-                    else
-                    {
-                        nodo.setHijoIzq(nodoEspecie);
-                    }
-                    
-                    arbol.hashtable.insertar(nombreEspecie, nodoEspecie);
-                }
+                nodo = arbol.buscarOCrearNuevoNodo(nodo, pregunta, respuesta);
+                ultimaRespuesta = respuesta;
             }
+            
+            NodoABB nodoEspecie = new NodoABB(nombreEspecie);
+            nodoEspecie.setEspecie(nombreEspecie);
+            nodoEspecie.setEsEspecie(true);
+            nodoEspecie.setPadre(nodo);
+
+            if(ultimaRespuesta)
+            {
+                nodo.setHijoDer(nodoEspecie);
+            }
+            else
+            {
+                nodo.setHijoIzq(nodoEspecie);
+            }
+
+            arbol.hashtable.insertar(nombreEspecie, nodoEspecie);
         }
         
         return arbol;
+    }
+    
+    private NodoABB buscarNodo(NodoABB nodo, String pregunta)
+    {
+        if(nodo == null)
+            return null;
+        
+        if(nodo.getDato().equals(pregunta))
+            return nodo;
+        
+        NodoABB izquierda = buscarNodo(nodo.getHijoIzq(), pregunta);
+        if(izquierda != null)
+            return izquierda;
+        
+        return buscarNodo(nodo.getHijoDer(), pregunta);
+    }
+    
+    private NodoABB buscarOCrearNuevoNodo(NodoABB nodo, String pregunta, boolean respuesta)
+    {
+        NodoABB existente = this.buscarNodo(nodo, pregunta);
+        if(existente != null)
+            return existente;
+        
+        if(respuesta)
+        {
+            if(nodo.getHijoDer() == null)
+                nodo.setHijoDer(new NodoABB(pregunta));
+            
+            return nodo.getHijoDer();
+        }
+        else
+        {
+            if(nodo.getHijoIzq() == null)
+                nodo.setHijoIzq(new NodoABB(pregunta));
+            
+            return nodo.getHijoIzq();
+        }
     }
     
     public String determinarEspecie(NodoABB root) 
@@ -199,8 +217,6 @@ public class ArbolABB
         
         return nodoActual != null ? nodoActual.getEspecie() : "Especie no encontrada.";
     }
-
-    
     
     public void visualizarConGraphStream() 
     {

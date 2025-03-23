@@ -47,12 +47,15 @@ public class InterfazPrincipal extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         panel_principal = new javax.swing.JTabbedPane();
         panel_menu = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         cargar_clave_button = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         panel_arboles_templados = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         busqueda_arboles_templados_btn = new javax.swing.JButton();
@@ -60,6 +63,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
         jLabel5 = new javax.swing.JLabel();
         resultado_arboles_templados_scpn = new javax.swing.JScrollPane();
         resultado_arboles_templados = new javax.swing.JTextArea();
+        buscar_por_nombre_at = new javax.swing.JButton();
         visualizar_grafo_at = new javax.swing.JButton();
         panel_familias_botanicas = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -68,13 +72,21 @@ public class InterfazPrincipal extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         resultado_familia_botanica_scpn = new javax.swing.JScrollPane();
         resultado_familia_botanica = new javax.swing.JTextArea();
+        buscar_por_nombre_fb = new javax.swing.JButton();
         visualizar_grafo_fb = new javax.swing.JButton();
+
+        jScrollPane2.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        panel_principal.setBackground(new java.awt.Color(255, 255, 255));
+        panel_principal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), null, null));
         panel_principal.setOpaque(true);
 
+        panel_menu.setBackground(new java.awt.Color(0, 153, 51));
+
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Identificar plantas");
 
@@ -91,35 +103,47 @@ public class InterfazPrincipal extends javax.swing.JFrame
             }
         });
 
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/clave_dicotomica/assets/green-pine-trees-covered-with-fog.jpg"))); // NOI18N
+
         javax.swing.GroupLayout panel_menuLayout = new javax.swing.GroupLayout(panel_menu);
         panel_menu.setLayout(panel_menuLayout);
         panel_menuLayout.setHorizontalGroup(
             panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_menuLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
             .addGroup(panel_menuLayout.createSequentialGroup()
-                .addGap(209, 209, 209)
-                .addComponent(cargar_clave_button)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_menuLayout.createSequentialGroup()
+                        .addGap(209, 209, 209)
+                        .addComponent(cargar_clave_button))
+                    .addGroup(panel_menuLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(panel_menuLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         panel_menuLayout.setVerticalGroup(
             panel_menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_menuLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cargar_clave_button)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         panel_principal.addTab("Principal", panel_menu);
 
+        panel_arboles_templados.setBackground(new java.awt.Color(0, 153, 51));
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Encontrar árboles templados");
 
@@ -130,6 +154,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
             }
         });
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Resultado:");
 
         resultado_arboles_templados.setEditable(false);
@@ -137,7 +162,14 @@ public class InterfazPrincipal extends javax.swing.JFrame
         resultado_arboles_templados.setRows(5);
         resultado_arboles_templados_scpn.setViewportView(resultado_arboles_templados);
 
-        visualizar_grafo_at.setText("Visualizar como grafo");
+        buscar_por_nombre_at.setText("Buscar por nombre");
+        buscar_por_nombre_at.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscar_por_nombre_atActionPerformed(evt);
+            }
+        });
+
+        visualizar_grafo_at.setText("Visualizar en grafo");
         visualizar_grafo_at.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 visualizar_grafo_atActionPerformed(evt);
@@ -148,43 +180,53 @@ public class InterfazPrincipal extends javax.swing.JFrame
         panel_arboles_templados.setLayout(panel_arboles_templadosLayout);
         panel_arboles_templadosLayout.setHorizontalGroup(
             panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(resultado_arboles_templados_scpn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel5)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
-                        .addComponent(busqueda_arboles_templados_btn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(visualizar_grafo_at)))
+                        .addGroup(panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel5))
+                            .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
+                                .addComponent(busqueda_arboles_templados_btn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buscar_por_nombre_at)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(visualizar_grafo_at)))
+                        .addGap(0, 177, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panel_arboles_templadosLayout.setVerticalGroup(
             panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_arboles_templadosLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_arboles_templadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(busqueda_arboles_templados_btn)
+                    .addComponent(buscar_por_nombre_at)
                     .addComponent(visualizar_grafo_at))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultado_arboles_templados_scpn, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(resultado_arboles_templados_scpn, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         panel_principal.addTab("Árboles templados", panel_arboles_templados);
 
+        panel_familias_botanicas.setBackground(new java.awt.Color(0, 153, 51));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Encontrar familia botánica");
 
@@ -195,6 +237,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Resultado:");
 
         resultado_familia_botanica.setEditable(false);
@@ -202,7 +245,9 @@ public class InterfazPrincipal extends javax.swing.JFrame
         resultado_familia_botanica.setRows(5);
         resultado_familia_botanica_scpn.setViewportView(resultado_familia_botanica);
 
-        visualizar_grafo_fb.setText("Visualizar como grafo");
+        buscar_por_nombre_fb.setText("Buscar por nombre");
+
+        visualizar_grafo_fb.setText("Visualizar en grafo");
         visualizar_grafo_fb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 visualizar_grafo_fbActionPerformed(evt);
@@ -213,37 +258,44 @@ public class InterfazPrincipal extends javax.swing.JFrame
         panel_familias_botanicas.setLayout(panel_familias_botanicasLayout);
         panel_familias_botanicasLayout.setHorizontalGroup(
             panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
+            .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addComponent(resultado_familia_botanica_scpn, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
-                        .addComponent(busqueda_familia_botanica_btn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(visualizar_grafo_fb)))
+                        .addGroup(panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel2))
+                            .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
+                                .addComponent(busqueda_familia_botanica_btn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buscar_por_nombre_fb)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(visualizar_grafo_fb)))
+                        .addGap(0, 177, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panel_familias_botanicasLayout.setVerticalGroup(
             panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_familias_botanicasLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(panel_familias_botanicasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(busqueda_familia_botanica_btn)
+                    .addComponent(buscar_por_nombre_fb)
                     .addComponent(visualizar_grafo_fb))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultado_familia_botanica_scpn, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addComponent(resultado_familia_botanica_scpn, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -311,7 +363,7 @@ public class InterfazPrincipal extends javax.swing.JFrame
     }//GEN-LAST:event_busqueda_arboles_templados_btnActionPerformed
 
     private void busqueda_familia_botanica_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busqueda_familia_botanica_btnActionPerformed
-        this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot(), this.resultado_arboles_templados);
+        this.arbolFamiliasBotanicas.determinarEspecie(this.arbolFamiliasBotanicas.getRoot(), this.resultado_familia_botanica);
     }//GEN-LAST:event_busqueda_familia_botanica_btnActionPerformed
 
     private void visualizar_grafo_atActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizar_grafo_atActionPerformed
@@ -322,16 +374,33 @@ public class InterfazPrincipal extends javax.swing.JFrame
         this.arbolFamiliasBotanicas.visualizarConGraphStream();
     }//GEN-LAST:event_visualizar_grafo_fbActionPerformed
 
+    private void buscar_por_nombre_atActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_por_nombre_atActionPerformed
+        String respuesta = JOptionPane.showInputDialog(this, "Introduce el nombre de la especie", "Nombre de especie", JOptionPane.QUESTION_MESSAGE);
+        if(respuesta == null || respuesta.length() == 0)
+        {
+            this.resultado_arboles_templados.setText("Especie inválida");
+            return;
+        }
+        
+        String camino = this.arbolArbolesTemplados.obtenerCaminoEspecie(respuesta);
+        this.resultado_arboles_templados.setText(camino);
+    }//GEN-LAST:event_buscar_por_nombre_atActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buscar_por_nombre_at;
+    private javax.swing.JButton buscar_por_nombre_fb;
     private javax.swing.JButton busqueda_arboles_templados_btn;
     private javax.swing.JButton busqueda_familia_botanica_btn;
     private javax.swing.JButton cargar_clave_button;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextArea jTextArea1;

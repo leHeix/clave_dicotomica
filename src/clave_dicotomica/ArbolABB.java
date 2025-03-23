@@ -171,9 +171,6 @@ public class ArbolABB
         
         arbol.construirGraph();
         
-        Viewer viewer = arbol.graph.display();
-        viewer.disableAutoLayout();
-        
         return arbol;
     }
     
@@ -201,14 +198,20 @@ public class ArbolABB
         if(respuesta)
         {
             if(nodo.getHijoDer() == null)
+            {
                 nodo.setHijoDer(new NodoABB(pregunta));
+                nodo.getHijoDer().setPadre(nodo);
+            }
             
             return nodo.getHijoDer();
         }
         else
         {
             if(nodo.getHijoIzq() == null)
+            {
                 nodo.setHijoIzq(new NodoABB(pregunta));
+                nodo.getHijoIzq().setPadre(nodo);
+            }
             
             return nodo.getHijoIzq();
         }
@@ -249,8 +252,10 @@ public class ArbolABB
         
         Node nodoGraph = this.graph.addNode(nodo.getDato());
         nodoGraph.setAttribute("ui.label", nodo.getDato());
-        nodoGraph.setAttribute("x", (nodo.esEspecie() ? x + 1.5f : x));
-        nodoGraph.setAttribute("y", (nodo.esEspecie() ? y + 0.5f : y));
+        
+        Random rng = new Random();
+        nodoGraph.setAttribute("x", (nodo.esEspecie() ? x + 1.5f : x + rng.nextFloat(-1.0f, 1.0f)));
+        nodoGraph.setAttribute("y", (nodo.esEspecie() ? y + 0.5f : y + rng.nextFloat(0.6f)));
 
         this.construirGraph(nodo.getHijoIzq(), x - 3.0f, y - 3.0f);
         this.construirGraph(nodo.getHijoDer(), x + 3.0f, y - 3.0f);
@@ -270,6 +275,37 @@ public class ArbolABB
     {
         Viewer viewer = this.graph.display(false);
         viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+    }
+    
+    public String obtenerCaminoEspecie(String nombreEspecie)
+    {
+        NodoABB Especie = this.hashtable.buscar(nombreEspecie);
+                
+        if (Especie == null) 
+        {
+            return "Especie no encontrada en el árbol binario.";
+        } 
+        else 
+        {
+            long tiempoInicio = System.nanoTime();
+
+            String resultado = Especie.getEspecie();
+            NodoABB padre = Especie.getPadre();
+            NodoABB nodoAnterior = Especie;
+            
+            do
+            {
+                resultado += " <- " + padre.getDato() + " - " + (padre.getHijoDer() == nodoAnterior ? "Sí" : "No");
+                nodoAnterior = padre;
+                padre = padre.getPadre();
+            }
+            while(padre != null);
+            
+            long tiempoFin = System.nanoTime();
+            
+            resultado += "\n\n(tiempo de búsqueda: " + (tiempoFin - tiempoInicio) + "ns)";
+            return resultado;
+        }
     }
 
     public NodoABB getRoot() 

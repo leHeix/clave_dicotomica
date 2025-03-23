@@ -119,14 +119,12 @@ public class ArbolABB
         {
             JSONObject obj = jsonContent.getJSONObject(i);
             String nombreEspecie = obj.keys().next();
-            
-            NodoABB nodo = arbol.getRoot();
-            NodoABB padre = null;
-            boolean respuestaAnterior = false;
-            
+                        
             JSONArray arrayPreguntas = obj.getJSONArray(nombreEspecie);
             int arrayPreguntasLength = arrayPreguntas.length();
             
+            NodoABB nodo = arbol.getRoot();
+                        
             for(int j = 0; j < arrayPreguntasLength; ++j)
             {
                 JSONObject preguntaObj = arrayPreguntas.getJSONObject(j);
@@ -135,30 +133,18 @@ public class ArbolABB
                 
                 if(nodo == null)
                 {
-                    nodo = new NodoABB(pregunta);
-                    arbol.setRoot(nodo);
+                    arbol.root = new NodoABB(pregunta);
+                    nodo = arbol.root;
                 }
                 else
-                {   
-                    /*
-                        CASO PINO:
-                        Hojas como agujas -> true
-                        -- CREA NODO A LA DERECHA --
-                        Hojas como agujas vienen en ramales -> true
-                        -- CREA NODO A LA DERECHA --
-                        Nodo a la derecha: Pino
-                    */
+                {
                     if(respuesta)
                     {
                         if(nodo.getHijoDer() == null)
                         {
                             nodo.setHijoDer(new NodoABB(pregunta));
                         }
-                        else if(!nodo.getHijoDer().getDato().equals(pregunta))
-                        {
-                            nodo.setHijoDer(new NodoABB(pregunta));
-                        }
-                        
+
                         nodo = nodo.getHijoDer();
                     }
                     else
@@ -167,33 +153,29 @@ public class ArbolABB
                         {
                             nodo.setHijoIzq(new NodoABB(pregunta));
                         }
-                        else if(!nodo.getHijoIzq().getDato().equals(pregunta))
-                        {
-                            nodo.setHijoIzq(new NodoABB(pregunta));
-                        }
+
                         nodo = nodo.getHijoIzq();
                     }
-                    
-                    padre = nodo;
                 }
                 
-                respuestaAnterior = respuesta;
+                if(j == arrayPreguntasLength - 1)
+                {
+                    NodoABB nodoEspecie = new NodoABB(nombreEspecie);
+                    nodoEspecie.setEspecie(nombreEspecie);
+                    nodoEspecie.setEsEspecie(true);
+
+                    if(respuesta)
+                    {
+                        nodo.setHijoDer(nodoEspecie);
+                    }
+                    else
+                    {
+                        nodo.setHijoIzq(nodoEspecie);
+                    }
+                    
+                    arbol.hashtable.insertar(nombreEspecie, nodoEspecie);
+                }
             }
-            
-            NodoABB nodoEspecie = new NodoABB(nombreEspecie);
-            nodoEspecie.setEspecie(nombreEspecie);
-            nodoEspecie.setEsEspecie(true);
-            
-            if(respuestaAnterior)
-            {
-                padre.setHijoDer(nodoEspecie);
-            }
-            else
-            {
-                padre.setHijoIzq(nodoEspecie);
-            }
-            
-            arbol.hashtable.insertar(nombreEspecie, nodoEspecie);
         }
         
         return arbol;

@@ -9,17 +9,12 @@ package clave_dicotomica;
  * @author Gabriel
  */
 
-import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import java.util.Random;
-import javax.swing.text.View;
 import org.json.*;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.graph.Node;
-import org.graphstream.ui.graphicGraph.GraphicGraph;
-import org.graphstream.ui.swing_viewer.util.DefaultMouseManager;
 import org.graphstream.ui.view.Viewer;
-import org.graphstream.ui.view.util.MouseManager;
 
 public class ArbolABB 
 {    
@@ -240,56 +235,6 @@ public class ArbolABB
         }
         
         output.setText(output.getText() + "\n\n" + (nodoActual == null ? "No se pudo encontrar la especie." : "Especie: " + nodoActual.getEspecie()));
-    }
-    
-    // Visualización del árbol binario con GraphStream
-    private int tamañoSubArbol(NodoABB nodo)
-    {
-        if(nodo == null)
-            return 0;
-        
-        int tamañoIzq = this.tamañoSubArbol(nodo.getHijoIzq());
-        int tamañoDer = this.tamañoSubArbol(nodo.getHijoDer());
-        return 1 + tamañoIzq + tamañoDer;
-    }
-    
-    private int profundidadNodo(String key)
-    {
-        return this.profundidadNodo(key, this.root, 1);
-    }
-    
-    private int profundidadNodo(String key, NodoABB nodo, int nivel)
-    {
-        if(nodo == null)
-            return 0;
-        
-        if(nodo.getDato() == key)
-            return nivel;
-        
-        int nivelIzquierda = this.profundidadNodo(key, nodo.getHijoIzq(), nivel + 1);
-        if(nivelIzquierda > 0)
-            return nivelIzquierda;
-        else
-            return this.profundidadNodo(key, nodo.getHijoDer(), nivel + 1);
-    }
-    
-    private int rangoNodo(String key)
-    {
-        return this.rangoNodo(key, this.root);
-    }
-    
-    private int rangoNodo(String key, NodoABB nodo)
-    {
-        if(nodo == null)
-            return 0;
-        
-        int comp = key.compareTo(nodo.getDato());
-        if(comp < 0)
-            return this.rangoNodo(key, nodo.getHijoIzq());
-        else if(comp > 0)
-            return 1 + this.tamañoSubArbol(nodo.getHijoIzq()) + this.rangoNodo(key, nodo.getHijoDer());
-        else
-            return this.tamañoSubArbol(nodo.getHijoIzq());
     }
     
     private void construirGraph()

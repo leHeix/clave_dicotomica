@@ -121,70 +121,79 @@ public class ArbolABB
             String nombreEspecie = obj.keys().next();
             
             NodoABB nodo = arbol.getRoot();
-            NodoABB anterior = null;
+            NodoABB padre = null;
             boolean respuestaAnterior = false;
             
             JSONArray arrayPreguntas = obj.getJSONArray(nombreEspecie);
             int arrayPreguntasLength = arrayPreguntas.length();
+            
             for(int j = 0; j < arrayPreguntasLength; ++j)
             {
                 JSONObject preguntaObj = arrayPreguntas.getJSONObject(j);
                 String pregunta = preguntaObj.keys().next();
                 boolean respuesta = preguntaObj.getBoolean(pregunta);
                 
-                // Crear la raíz si no existe
                 if(nodo == null)
                 {
                     nodo = new NodoABB(pregunta);
-                    if(arbol.root == null)
-                        arbol.root = nodo;
+                    arbol.setRoot(nodo);
                 }
                 else
-                {            
-                    if(nodo.getDato().equals(pregunta))
+                {   
+                    /*
+                        CASO PINO:
+                        Hojas como agujas -> true
+                        -- CREA NODO A LA DERECHA --
+                        Hojas como agujas vienen en ramales -> true
+                        -- CREA NODO A LA DERECHA --
+                        Nodo a la derecha: Pino
+                    */
+                    if(respuesta)
                     {
-                        if(respuesta)
+                        if(nodo.getHijoDer() == null)
                         {
-                            if(nodo.getHijoDer() == null)
-                                nodo.setHijoDer(new NodoABB(pregunta));
-                            
-                            nodo = nodo.getHijoDer();
+                            nodo.setHijoDer(new NodoABB(pregunta));
                         }
-                        else
+                        else if(!nodo.getHijoDer().getDato().equals(pregunta))
                         {
-                            if(nodo.getHijoIzq() == null)
-                                nodo.setHijoIzq(new NodoABB(pregunta));
-                            
-                            nodo = nodo.getHijoIzq();
+                            nodo.setHijoDer(new NodoABB(pregunta));
                         }
+                        
+                        nodo = nodo.getHijoDer();
                     }
                     else
                     {
-                        NodoABB nodoNuevo = new NodoABB(pregunta);
-                        if(respuestaAnterior)
+                        if(nodo.getHijoIzq() == null)
                         {
-                            anterior.setHijoDer(nodoNuevo);
+                            nodo.setHijoIzq(new NodoABB(pregunta));
                         }
-                        else
+                        else if(!nodo.getHijoIzq().getDato().equals(pregunta))
                         {
-                            anterior.setHijoIzq(nodoNuevo);
+                            nodo.setHijoIzq(new NodoABB(pregunta));
                         }
-                        
-                        nodo = nodoNuevo;
+                        nodo = nodo.getHijoIzq();
                     }
+                    
+                    padre = nodo;
                 }
                 
-                anterior = nodo;
                 respuestaAnterior = respuesta;
             }
             
-            if(nodo != null && nodo.getHijoDer() == null && nodo.getHijoIzq() == null)
+            NodoABB nodoEspecie = new NodoABB(nombreEspecie);
+            nodoEspecie.setEspecie(nombreEspecie);
+            nodoEspecie.setEsEspecie(true);
+            
+            if(respuestaAnterior)
             {
-                nodo.setEspecie(nombreEspecie);
-                nodo.setEsEspecie(true);
-                arbol.hashtable.insertar(nombreEspecie, nodo);
+                padre.setHijoDer(nodoEspecie);
             }
-            else System.out.println("el nodo no es null????");
+            else
+            {
+                padre.setHijoIzq(nodoEspecie);
+            }
+            
+            arbol.hashtable.insertar(nombreEspecie, nodoEspecie);
         }
         
         return arbol;

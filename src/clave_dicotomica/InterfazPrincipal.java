@@ -246,6 +246,11 @@ public class InterfazPrincipal extends javax.swing.JFrame
         resultado_familia_botanica_scpn.setViewportView(resultado_familia_botanica);
 
         buscar_por_nombre_fb.setText("Buscar por nombre");
+        buscar_por_nombre_fb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscar_por_nombre_fbActionPerformed(evt);
+            }
+        });
 
         visualizar_grafo_fb.setText("Visualizar en grafo");
         visualizar_grafo_fb.addActionListener(new java.awt.event.ActionListener() {
@@ -385,6 +390,18 @@ public class InterfazPrincipal extends javax.swing.JFrame
         String camino = this.arbolArbolesTemplados.obtenerCaminoEspecie(respuesta);
         this.resultado_arboles_templados.setText(camino);
     }//GEN-LAST:event_buscar_por_nombre_atActionPerformed
+
+    private void buscar_por_nombre_fbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_por_nombre_fbActionPerformed
+        String respuesta = JOptionPane.showInputDialog(this, "Introduce el nombre de la familia botánica", "Nombre de familia botánica", JOptionPane.QUESTION_MESSAGE);
+        if(respuesta == null || respuesta.length() == 0)
+        {
+            this.resultado_familia_botanica.setText("Familia botánica inválida");
+            return;
+        }
+        
+        String camino = this.arbolFamiliasBotanicas.obtenerCaminoEspecie(respuesta);
+        this.resultado_familia_botanica.setText(camino);
+    }//GEN-LAST:event_buscar_por_nombre_fbActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscar_por_nombre_at;

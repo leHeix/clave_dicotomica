@@ -420,6 +420,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Buscar por nombre"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscar_por_nombre_fbActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="visualizar_grafo_fb">
               <Properties>
